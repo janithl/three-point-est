@@ -1,4 +1,11 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
+import React from "react";
+import ReactDOM from "react-dom";
 
-ReactDOM.render(<div></div>, document.getElementById('root'));
+import Navbar from "./common/Navbar";
+
+ReactDOM.render(
+  <React.Fragment>
+    <Navbar title="Three Point Estimation App" />
+  </React.Fragment>,
+  document.getElementById("root")
+);
