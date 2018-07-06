@@ -13,7 +13,7 @@ const TextInput = ({ value, validationMessage, onChange, ...props }) => (
       {...props}
     />
     {validationMessage !== "" && (
-      <div class="invalid-feedback">{validationMessage}</div>
+      <div className="invalid-feedback">{validationMessage}</div>
     )}
   </React.Fragment>
 );

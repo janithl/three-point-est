@@ -16,16 +16,25 @@ const EstimationRowFields = {
   }
 };
 
+const calculateEstimate = task =>
+  (parseFloat(task.bestCase.value) +
+    parseFloat(task.mostLikely.value) * 4 +
+    parseFloat(task.worstCase.value)) /
+  6.0;
+
 const EstimationRow = ({ task, updateTask }) => (
   <div className="form-row">
     {Object.keys(task).map(field => (
       <div key={field} className={"col-md-" + EstimationRowFields[field].size}>
         <TextInput
-          value={task[field]}
-          validationMessage=""
-          onChange={e => updateTask(task.id, field, e.target.value)}
+          value={
+            field === "estimate" ? calculateEstimate(task) : task[field].value
+          }
+          validationMessage={task[field].validationMessage}
+          onChange={e => updateTask(task.id.value, field, e.target.value)}
           placeholder={EstimationRowFields[field].placeholder}
           disabled={EstimationRowFields[field].disabled}
+          type={EstimationRowFields[field].type}
         />
       </div>
     ))}

@@ -2,13 +2,19 @@ import React from "react";
 
 import EstimationRow from "./EstimationRow";
 
+const field = (value, validation) => ({
+  value,
+  validation,
+  validationMessage: ""
+});
+
 const taskTemplate = id => ({
-  id: id,
-  taskName: "Task " + id,
-  bestCase: 0,
-  mostLikely: 0,
-  worstCase: 0,
-  estimate: 0
+  id: field(id, /^.+$/),
+  taskName: field("Task " + id, /^.+$/),
+  bestCase: field(0, /^\d+$/),
+  mostLikely: field(0, /^\d+$/),
+  worstCase: field(0, /^\d+$/),
+  estimate: field(0, /^\d+$/)
 });
 
 export default class AppContainer extends React.Component {
@@ -35,11 +41,17 @@ export default class AppContainer extends React.Component {
           ...prevState.tasks,
           [taskID]: {
             ...prevState.tasks[taskID],
-            [key]: value
+            [key]: this.updateField(prevState.tasks[taskID][key], value)
           }
         }
       };
     });
+
+  updateField = (prevValue, value) => ({
+    ...prevValue,
+    value,
+    validationMessage: prevValue.validation.test(value) ? "" : "Error"
+  });
 
   render() {
     return (
