@@ -1,14 +1,15 @@
 import React from "react";
 
-const TextInput = ({ value, placeholder, validationMessage, onChange }) => (
+const TextInput = ({ value, validationMessage, onChange, ...props }) => (
   <React.Fragment>
     <input
       type="text"
       className={
-        validationMessage !== "" ? "form-control is-invalid" : "form-control"
+        "form-control form-control-sm" +
+        (validationMessage !== "" ? " is-invalid" : "")
       }
-      placeholder={placeholder}
       value={value}
+      {...props}
     />
     {validationMessage !== "" && (
       <div class="invalid-feedback">{validationMessage}</div>

@@ -3,18 +3,12 @@ import ReactDOM from "react-dom";
 
 import "./styles.css";
 import Navbar from "./common/Navbar";
-import EstimationRow from "./common/EstimationRow";
+import AppContainer from "./common/AppContainer";
+
 ReactDOM.render(
   <React.Fragment>
     <Navbar title="Three Point Estimation App" />
-    <div className="container">
-      <form>
-        <EstimationRow />
-        <EstimationRow />
-        <EstimationRow />
-        <EstimationRow />
-      </form>
-    </div>
+    <AppContainer />
   </React.Fragment>,
   document.getElementById("root")
 );
