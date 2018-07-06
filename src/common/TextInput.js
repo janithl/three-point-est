@@ -9,6 +9,7 @@ const TextInput = ({ value, validationMessage, onChange, ...props }) => (
         (validationMessage !== "" ? " is-invalid" : "")
       }
       value={value}
+      onChange={onChange}
       {...props}
     />
     {validationMessage !== "" && (

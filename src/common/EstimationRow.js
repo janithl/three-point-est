@@ -3,22 +3,27 @@ import React from "react";
 import TextInput from "./TextInput";
 
 const EstimationRowFields = {
-  id: { placeholder: "ID", size: "1" },
+  id: { placeholder: "ID", size: "1", disabled: true },
   taskName: { placeholder: "Task Name", size: "3" },
-  bestCase: { placeholder: "Best Case", size: "1" },
-  mostLikely: { placeholder: "Most Likely", size: "1" },
-  worstCase: { placeholder: "Worst Case", size: "1" },
-  estimate: { placeholder: "Estimate", size: "1", disabled: true }
+  bestCase: { placeholder: "Best Case", size: "1", type: "number" },
+  mostLikely: { placeholder: "Most Likely", size: "1", type: "number" },
+  worstCase: { placeholder: "Worst Case", size: "1", type: "number" },
+  estimate: {
+    placeholder: "Estimate",
+    size: "1",
+    type: "number",
+    disabled: true
+  }
 };
 
-const EstimationRow = ({ task }) => (
+const EstimationRow = ({ task, updateTask }) => (
   <div className="form-row">
     {Object.keys(task).map(field => (
-      <div className={"col-md-" + EstimationRowFields[field].size}>
+      <div key={field} className={"col-md-" + EstimationRowFields[field].size}>
         <TextInput
           value={task[field]}
           validationMessage=""
-          onChange={() => {}}
+          onChange={e => updateTask(task.id, field, e.target.value)}
           placeholder={EstimationRowFields[field].placeholder}
           disabled={EstimationRowFields[field].disabled}
         />
