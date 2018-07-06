@@ -1,0 +1,1 @@
+{"version":3,"sources":["styles.css"],"names":[],"mappings":"AAAA,KACE,gBAAkB,CAGpB,UACE,kBAAoB","file":"static/css/main.b5d8c638.css","sourcesContent":["body {\n  padding-top: 5rem;\n}\n\n.form-row {\n  margin-bottom: 10px;\n}\n\n\n\n// WEBPACK FOOTER //\n// ./src/styles.css"],"sourceRoot":""}
