@@ -3,7 +3,7 @@
 # three-point-est
 
 A 'simple three point estimation' app in React. You can
-[see it in action here](https://janithl.github.io/three-point-est/)
+[see it in action here](https://janithl.github.io/three-point-est/).
 
 ## What is a three-point estimation?
 
