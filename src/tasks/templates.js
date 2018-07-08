@@ -30,3 +30,9 @@ export const taskRowFields = {
   mostLikely: { placeholder: "Most Likely", size: "2", type: "number" },
   worstCase: { placeholder: "Worst Case", size: "2", type: "number" }
 };
+
+export const calculateEstimate = task =>
+  (parseFloat(task.bestCase.value) +
+    parseFloat(task.mostLikely.value) * 4 +
+    parseFloat(task.worstCase.value)) /
+  6.0;

@@ -1,4 +1,5 @@
 import React from "react";
+
 import { taskRowFields } from "./templates";
 
 const TaskHeadings = () => (

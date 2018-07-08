@@ -3,14 +3,8 @@ import { connect } from "react-redux";
 
 import { editTaskValue, removeTask } from "./actions";
 import { makeGetTask } from "./selectors";
-import { taskRowFields } from "./templates";
+import { calculateEstimate, taskRowFields } from "./templates";
 import TextInput from "../common/TextInput";
-
-const calculateEstimate = task =>
-  (parseFloat(task.bestCase.value) +
-    parseFloat(task.mostLikely.value) * 4 +
-    parseFloat(task.worstCase.value)) /
-  6.0;
 
 const TaskRow = ({ task, editTask, removeTask }) => (
   <div className="form-row">
