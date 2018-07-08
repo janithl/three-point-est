@@ -1,6 +1,9 @@
 import React from "react";
+import { connect } from "react-redux";
 
-import TextInput from "./TextInput";
+import { editTaskValue } from "./actions";
+import { makeGetTask } from "./selectors";
+import TextInput from "../common/TextInput";
 
 const EstimationRowFields = {
   id: { placeholder: "ID", size: "1", disabled: true },
@@ -22,7 +25,7 @@ const calculateEstimate = task =>
     parseFloat(task.worstCase.value)) /
   6.0;
 
-const EstimationRow = ({ task, updateTask }) => (
+const TaskRow = ({ task, editTask }) => (
   <div className="form-row">
     {Object.keys(task).map(field => (
       <div key={field} className={"col-md-" + EstimationRowFields[field].size}>
@@ -31,7 +34,7 @@ const EstimationRow = ({ task, updateTask }) => (
             field === "estimate" ? calculateEstimate(task) : task[field].value
           }
           validationMessage={task[field].validationMessage}
-          onChange={e => updateTask(task.id.value, field, e.target.value)}
+          onChange={e => editTask(field, e.target.value)}
           placeholder={EstimationRowFields[field].placeholder}
           disabled={EstimationRowFields[field].disabled}
           type={EstimationRowFields[field].type}
@@ -41,4 +44,20 @@ const EstimationRow = ({ task, updateTask }) => (
   </div>
 );
 
-export default EstimationRow;
+const makeMapStateToProps = () => {
+  const getTask = makeGetTask();
+  const mapStateToProps = (state, props) => ({
+    task: getTask(state, props)
+  });
+
+  return mapStateToProps;
+};
+
+const mapDispatchToProps = (dispatch, props) => ({
+  editTask: (key, value) => dispatch(editTaskValue(props.taskID, key, value))
+});
+
+export default connect(
+  makeMapStateToProps,
+  mapDispatchToProps
+)(TaskRow);

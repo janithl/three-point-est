@@ -1,7 +1,9 @@
 import React from "react";
+import { connect } from "react-redux";
 
-import EstimationRow from "./EstimationRow";
-
+import { addTask } from "../tasks/actions";
+import TaskRow from "../tasks/TaskRow";
+/*
 const field = (value, validation) => ({
   value,
   validation,
@@ -76,3 +78,34 @@ export default class AppContainer extends React.Component {
     );
   }
 }
+*/
+
+export const AppContainer = ({ tasks, addTask }) => (
+  <div className="container">
+    <form>
+      {Object.keys(tasks).map(taskID => (
+        <TaskRow key={taskID} taskID={taskID} />
+      ))}
+      <button
+        type="button"
+        className="btn btn-outline-secondary"
+        onClick={addTask}
+      >
+        Add New Task
+      </button>
+    </form>
+  </div>
+);
+
+const mapStateToProps = state => ({
+  tasks: state.tasks
+});
+
+const mapDispatchToProps = dispatch => ({
+  addTask: () => dispatch(addTask())
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(AppContainer);
