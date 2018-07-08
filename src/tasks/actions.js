@@ -21,3 +21,13 @@ export function editTaskValue(id, key, value) {
     value
   };
 }
+
+export function clearAllTasks() {
+  if (window.confirm("Are you sure you want to Remove All Tasks?")) {
+    return {
+      type: types.CLEAR_ALL_TASKS
+    };
+  } else {
+    return { type: "NOOP" };
+  }
+}

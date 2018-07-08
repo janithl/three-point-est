@@ -6,7 +6,7 @@ import StatCard from "../common/StatCard";
 
 const TaskStats = ({ taskCount, totalEstimate }) => (
   <div className="row">
-    <StatCard stat={"0 / " + taskCount} title={"Tasks Completed"} />
+    <StatCard stat={taskCount} title={"Total Tasks"} />
     <StatCard stat={totalEstimate.toFixed(2)} title={"Total Estimate"} />
   </div>
 );

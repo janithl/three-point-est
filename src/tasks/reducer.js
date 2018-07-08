@@ -24,6 +24,9 @@ function reducer(state = initialState, action = {}) {
       const { [action.id]: value, ...tasks } = state.tasks;
       return { ...state, tasks };
 
+    case types.CLEAR_ALL_TASKS:
+      return initialState;
+
     case types.EDIT_TASK_VALUE:
       const currentValue = state.tasks[action.id][action.key];
       const currentInputType = inputTypes[currentValue.type];
