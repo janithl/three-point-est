@@ -1,13 +1,32 @@
-export const field = (value, validation) => ({
+const field = (value, type) => ({
   value,
-  validation,
+  type,
   validationMessage: ""
 });
 
+export const inputTypes = {
+  STRING: {
+    validation: /^.+$/,
+    errorMessage: "Field is expected to be not empty"
+  },
+  NUMBER: {
+    validation: /^[0-9.]+$/,
+    errorMessage: "Field is expected to be numeric and not empty"
+  }
+};
+
 export const taskTemplate = id => ({
-  id: field(id, /^.+$/),
-  taskName: field("Task " + id, /^.+$/),
-  bestCase: field(0, /^\d+$/),
-  mostLikely: field(0, /^\d+$/),
-  worstCase: field(0, /^\d+$/)
+  id: field(id, "STRING"),
+  taskName: field("Task " + id, "STRING"),
+  bestCase: field(0, "NUMBER"),
+  mostLikely: field(0, "NUMBER"),
+  worstCase: field(0, "NUMBER")
 });
+
+export const taskRowFields = {
+  id: { placeholder: "ID", size: "1", disabled: true },
+  taskName: { placeholder: "Task Name", size: "3" },
+  bestCase: { placeholder: "Best Case", size: "2", type: "number" },
+  mostLikely: { placeholder: "Most Likely", size: "2", type: "number" },
+  worstCase: { placeholder: "Worst Case", size: "2", type: "number" }
+};

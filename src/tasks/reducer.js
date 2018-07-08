@@ -1,5 +1,5 @@
 import * as types from "./types";
-import { taskTemplate } from "./templates";
+import { taskTemplate, inputTypes } from "./templates";
 
 const initialState = {
   nextID: 2,
@@ -25,15 +25,20 @@ function reducer(state = initialState, action = {}) {
       return { ...state, tasks };
 
     case types.EDIT_TASK_VALUE:
+      const currentValue = state.tasks[action.id][action.key];
+      const currentInputType = inputTypes[currentValue.type];
       return {
         ...state,
         tasks: {
           ...state.tasks,
           [action.id]: {
-            ...state[action.id],
+            ...state.tasks[action.id],
             [action.key]: {
-              ...state[action.id][action.key],
-              value: action.value
+              ...currentValue,
+              value: action.value,
+              validationMessage: currentInputType.validation.test(action.value)
+                ? ""
+                : currentInputType.errorMessage
             }
           }
         }

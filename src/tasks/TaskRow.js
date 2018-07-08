@@ -3,15 +3,8 @@ import { connect } from "react-redux";
 
 import { editTaskValue, removeTask } from "./actions";
 import { makeGetTask } from "./selectors";
+import { taskRowFields } from "./templates";
 import TextInput from "../common/TextInput";
-
-const TaskRowFields = {
-  id: { placeholder: "ID", size: "1", disabled: true },
-  taskName: { placeholder: "Task Name", size: "3" },
-  bestCase: { placeholder: "Best Case", size: "1", type: "number" },
-  mostLikely: { placeholder: "Most Likely", size: "1", type: "number" },
-  worstCase: { placeholder: "Worst Case", size: "1", type: "number" }
-};
 
 const calculateEstimate = task =>
   (parseFloat(task.bestCase.value) +
@@ -22,20 +15,20 @@ const calculateEstimate = task =>
 const TaskRow = ({ task, editTask, removeTask }) => (
   <div className="form-row">
     {Object.keys(task).map(field => (
-      <div key={field} className={"col-md-" + TaskRowFields[field].size}>
+      <div key={field} className={"col-md-" + taskRowFields[field].size}>
         <TextInput
           value={task[field].value}
           validationMessage={task[field].validationMessage}
           onChange={e => editTask(field, e.target.value)}
-          placeholder={TaskRowFields[field].placeholder}
-          disabled={TaskRowFields[field].disabled}
-          type={TaskRowFields[field].type}
+          placeholder={taskRowFields[field].placeholder}
+          disabled={taskRowFields[field].disabled}
+          type={taskRowFields[field].type}
         />
       </div>
     ))}
     <div className="col-md-1">
       <TextInput
-        value={calculateEstimate(task)}
+        value={calculateEstimate(task).toFixed(2)}
         validationMessage=""
         onChange={e => {}}
         disabled
