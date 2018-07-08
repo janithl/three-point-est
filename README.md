@@ -2,7 +2,8 @@
 
 # three-point-est
 
-A 'simple three point estimation' app in React
+A 'simple three point estimation' app in React. You can
+[see it in action here](https://janithl.github.io/three-point-est/)
 
 ## What is a three-point estimation?
 
@@ -16,9 +17,7 @@ A 'simple three point estimation' app in React
 >
 > **E = (a + 4m + b) / 6**
 >
-> a = the best-case estimate
-> m = the most likely estimate
-> b = the worst-case estimate
+> _(where a = the best-case estimate, m = the most likely estimate, b = the worst-case estimate)_
 
 — [Wikipedia](https://en.wikipedia.org/wiki/Three-point_estimation)
 
