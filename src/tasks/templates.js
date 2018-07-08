@@ -9,6 +9,5 @@ export const taskTemplate = id => ({
   taskName: field("Task " + id, /^.+$/),
   bestCase: field(0, /^\d+$/),
   mostLikely: field(0, /^\d+$/),
-  worstCase: field(0, /^\d+$/),
-  estimate: field(0, /^\d+$/)
+  worstCase: field(0, /^\d+$/)
 });

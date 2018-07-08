@@ -1,22 +1,16 @@
 import React from "react";
 import { connect } from "react-redux";
 
-import { editTaskValue } from "./actions";
+import { editTaskValue, removeTask } from "./actions";
 import { makeGetTask } from "./selectors";
 import TextInput from "../common/TextInput";
 
-const EstimationRowFields = {
+const TaskRowFields = {
   id: { placeholder: "ID", size: "1", disabled: true },
   taskName: { placeholder: "Task Name", size: "3" },
   bestCase: { placeholder: "Best Case", size: "1", type: "number" },
   mostLikely: { placeholder: "Most Likely", size: "1", type: "number" },
-  worstCase: { placeholder: "Worst Case", size: "1", type: "number" },
-  estimate: {
-    placeholder: "Estimate",
-    size: "1",
-    type: "number",
-    disabled: true
-  }
+  worstCase: { placeholder: "Worst Case", size: "1", type: "number" }
 };
 
 const calculateEstimate = task =>
@@ -25,22 +19,35 @@ const calculateEstimate = task =>
     parseFloat(task.worstCase.value)) /
   6.0;
 
-const TaskRow = ({ task, editTask }) => (
+const TaskRow = ({ task, editTask, removeTask }) => (
   <div className="form-row">
     {Object.keys(task).map(field => (
-      <div key={field} className={"col-md-" + EstimationRowFields[field].size}>
+      <div key={field} className={"col-md-" + TaskRowFields[field].size}>
         <TextInput
-          value={
-            field === "estimate" ? calculateEstimate(task) : task[field].value
-          }
+          value={task[field].value}
           validationMessage={task[field].validationMessage}
           onChange={e => editTask(field, e.target.value)}
-          placeholder={EstimationRowFields[field].placeholder}
-          disabled={EstimationRowFields[field].disabled}
-          type={EstimationRowFields[field].type}
+          placeholder={TaskRowFields[field].placeholder}
+          disabled={TaskRowFields[field].disabled}
+          type={TaskRowFields[field].type}
         />
       </div>
     ))}
+    <div className="col-md-1">
+      <TextInput
+        value={calculateEstimate(task)}
+        validationMessage=""
+        onChange={e => {}}
+        disabled
+      />
+    </div>
+    <button
+      type="button"
+      className="btn btn-danger btn-sm"
+      onClick={removeTask}
+    >
+      &times;
+    </button>
   </div>
 );
 
@@ -54,7 +61,8 @@ const makeMapStateToProps = () => {
 };
 
 const mapDispatchToProps = (dispatch, props) => ({
-  editTask: (key, value) => dispatch(editTaskValue(props.taskID, key, value))
+  editTask: (key, value) => dispatch(editTaskValue(props.taskID, key, value)),
+  removeTask: () => dispatch(removeTask(props.taskID))
 });
 
 export default connect(

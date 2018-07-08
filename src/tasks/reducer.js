@@ -2,25 +2,40 @@ import * as types from "./types";
 import { taskTemplate } from "./templates";
 
 const initialState = {
-  "1": taskTemplate("1")
+  nextID: 2,
+  tasks: {
+    "1": taskTemplate("1")
+  }
 };
 
 function reducer(state = initialState, action = {}) {
-  console.log(state);
   switch (action.type) {
     case types.ADD_TASK:
-      const nextID = (Object.keys(state).length + 1).toString();
       return {
         ...state,
-        [nextID]: taskTemplate(nextID)
+        tasks: {
+          ...state.tasks,
+          [state.nextID.toString()]: taskTemplate(state.nextID.toString())
+        },
+        nextID: state.nextID + 1
       };
+
+    case types.REMOVE_TASK:
+      const { [action.id]: value, ...tasks } = state.tasks;
+      return { ...state, tasks };
 
     case types.EDIT_TASK_VALUE:
       return {
         ...state,
-        [action.id]: {
-          ...state[action.id],
-          [action.key]: action.value
+        tasks: {
+          ...state.tasks,
+          [action.id]: {
+            ...state[action.id],
+            [action.key]: {
+              ...state[action.id][action.key],
+              value: action.value
+            }
+          }
         }
       };
 

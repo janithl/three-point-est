@@ -98,7 +98,7 @@ export const AppContainer = ({ tasks, addTask }) => (
 );
 
 const mapStateToProps = state => ({
-  tasks: state.tasks
+  tasks: state.tasks.tasks
 });
 
 const mapDispatchToProps = dispatch => ({
