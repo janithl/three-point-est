@@ -25,6 +25,7 @@ const TaskRow = ({ task, editTask, removeTask }) => (
         value={calculateEstimate(task).toFixed(2)}
         validationMessage=""
         onChange={e => {}}
+        placeholder={"Estimate"}
         disabled
       />
     </div>
