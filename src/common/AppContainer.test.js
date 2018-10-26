@@ -45,3 +45,41 @@ test("check calculations for a single task", () => {
   // check if initially, one task is there
   expect(getByPlaceholderText("Estimate").value).toBe("15.00");
 });
+
+test("check sums are correct", () => {
+  const { getByText, getAllByPlaceholderText, getByTestId } = renderWithRedux(
+    <AppContainer />
+  );
+
+  fireEvent.click(getByText("Add New Task"));
+  fireEvent.click(getByText("Add New Task"));
+
+  const bestCases = getAllByPlaceholderText("Best Case");
+  const mostLikelies = getAllByPlaceholderText("Most Likely");
+  const worstCases = getAllByPlaceholderText("Worst Case");
+
+  // check if 3 inputs have been added
+  expect(bestCases.length).toBe(3);
+
+  bestCases.forEach(bc => {
+    fireEvent.change(bc, {
+      target: { value: "10" }
+    });
+  });
+
+  mostLikelies.forEach(ml => {
+    fireEvent.change(ml, {
+      target: { value: "15" }
+    });
+  });
+
+  worstCases.forEach(wc => {
+    fireEvent.change(wc, {
+      target: { value: "20" }
+    });
+  });
+
+  // check total tasks and total estimate are correct
+  expect(getByTestId("Total Tasks").innerText, "3");
+  expect(getByTestId("Total Estimate").innerText, "45.00");
+});
